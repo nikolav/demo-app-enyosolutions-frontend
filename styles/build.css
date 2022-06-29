@@ -1251,10 +1251,6 @@ select {
   right: 0.5rem;
 }
 
-.-top-\[1px\] {
-  top: -1px;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1330,12 +1326,12 @@ select {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.cursor-zoom-in {
-  cursor: zoom-in;
-}
-
 .cursor-not-allowed {
   cursor: not-allowed;
+}
+
+.cursor-zoom-in {
+  cursor: zoom-in;
 }
 
 .list-none {
@@ -1474,10 +1470,6 @@ select {
   padding-left: 1rem;
 }
 
-.text-center {
-  text-align: center;
-}
-
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -1501,11 +1493,6 @@ select {
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .italic {
@@ -1537,20 +1524,16 @@ select {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.\!opacity-50 {
+  opacity: 0.5 !important;
+}
+
 .opacity-10 {
   opacity: 0.1;
 }
 
 .opacity-30 {
   opacity: 0.3;
-}
-
-.\!opacity-20 {
-  opacity: 0.2 !important;
-}
-
-.\!opacity-50 {
-  opacity: 0.5 !important;
 }
 
 .shadow {
