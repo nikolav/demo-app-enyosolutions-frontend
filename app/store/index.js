@@ -1,4 +1,13 @@
-import { useAppData, ADMIN, TEST } from "./slice-appdata";
+import { useAppData, ADMIN, TEST, DISPAY_ARTICLE } from "./slice-appdata";
 import { useFlags, FLAG_TEST } from "./slice-flags";
+import { useArticles } from "./resource";
 //
-export { useAppData, useFlags, ADMIN, TEST, FLAG_TEST };
+export {
+  useArticles,
+  useAppData,
+  useFlags,
+  ADMIN,
+  TEST,
+  FLAG_TEST,
+  DISPAY_ARTICLE,
+};

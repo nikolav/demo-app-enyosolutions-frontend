@@ -2,4 +2,11 @@
   color: #1e2;
 }
 
+.inputRss {
+  background-image: url("../components/icons/rss-filled.svg");
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: 6px;
+}
+
 /*# sourceMappingURL=globals.css.map */

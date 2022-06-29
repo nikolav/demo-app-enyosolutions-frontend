@@ -4,3 +4,10 @@ $color-primary: #1e2;
 .green-01 {
     color: $color-primary;
 }
+
+.inputRss {
+    background-image: url("../components/icons/rss-filled.svg");
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 6px;
+}

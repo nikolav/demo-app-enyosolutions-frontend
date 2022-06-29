@@ -25,3 +25,12 @@
    */
  @tailwind variants;
  
+ /* add classes */
+ @layer components {
+  .icon-close {
+    @apply absolute z-50 top-4 right-4 text-4xl opacity-40 hover:scale-110 hover:opacity-80 cursor-pointer;
+  }
+  .input-underline {
+    @apply w-full px-0.5 border-0 border-b-2 border-gray-50 focus:ring-0 focus:border-gray-200 placeholder:italic placeholder:opacity-40 !bg-transparent
+  }
+ }

@@ -5,6 +5,7 @@ import { paste, has } from "../../src/util";
 //
 export const TEST = "fktzzfpmzpb";
 export const ADMIN = "otqknvlgpve";
+export const DISPAY_ARTICLE = "yxnlrtxfhdz"
 //
 const initialState = {
   [ADMIN]: {
@@ -14,6 +15,7 @@ const initialState = {
     github: "https://github.com/nikolav",
   },
   [TEST]: "1.22.333",
+  [DISPAY_ARTICLE]: null,
 };
 
 export const counterSlice = createSlice({

@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-//
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { store } from "../app/store/redux";
+import { QueryProvider } from "../app/providers";
+import ArticlesProvider from "../app/store/resource";
 //
 import "../styles/reset.css";
 import "../styles/build.css";
@@ -12,7 +13,7 @@ import "../styles/globals.css";
 const pageVariantsMotion = {
   in: {
     opacity: 1,
-    position: "absolute",
+    // position: "absolute",
     transition: {
       duration: 0.24,
     },
@@ -48,25 +49,30 @@ function MyApp({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SessionProvider
-        session={session}
-        refetchInterval={0}
-        refetchOnWindowFocus={true}
-      >
-        <ReduxStoreProvider store={store}>
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={route}
-              initial="out"
-              animate="in"
-              exit="out"
-              variants={pageVariantsMotion}
-            >
-              <Component {...restPageProps} />
-            </motion.div>
-          </AnimatePresence>
-        </ReduxStoreProvider>
-      </SessionProvider>
+      <QueryProvider>
+        <ArticlesProvider>
+          <SessionProvider
+            session={session}
+            refetchInterval={0}
+            refetchOnWindowFocus={true}
+          >
+            <ReduxStoreProvider store={store}>
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={route}
+                  initial="out"
+                  animate="in"
+                  exit="out"
+                  variants={pageVariantsMotion}
+                  className="absolute w-full"
+                >
+                  <Component {...restPageProps} />
+                </motion.div>
+              </AnimatePresence>
+            </ReduxStoreProvider>
+          </SessionProvider>
+        </ArticlesProvider>
+      </QueryProvider>
     </>
   );
 }
