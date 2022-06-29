@@ -1,19 +1,33 @@
 import { useRef, useEffect } from "react";
 import Link from "next/link";
-import { useArticles } from "../app/store";
 import { prevent, sortByTimestampDesc } from "../src/util";
 import useInputSynced from "../src/hooks/use-input-synced";
 import { AiFillGithub, HiOutlineExternalLink } from "../components/icons";
 import Modal from "../components/Modal/Modal";
-import { useAppData, DISPAY_ARTICLE } from "../app/store";
+import {
+  useAppData,
+  useFlags,
+  useArticles,
+  //
+  API_URL,
+  APP_NOTIFICATION,
+  DISPAY_ARTICLE,
+  FLAG_FEEDS_LOADING,
+} from "../app/store";
+import axios from "axios";
+import { useQueryClient } from "react-query";
 ////
 ////
 export default function Index() {
   //
   const refInput = useRef();
-  const { inputs, sync } = useInputSynced({ feed: "" });
+  const qClient = useQueryClient();
+  const { inputs, sync, setInput } = useInputSynced({ feed: "" });
   const { articles } = useArticles();
-
+  const resetInput = () => setInput("feed", "");
+  //
+  const flags = useFlags();
+  const flagFeedsLoading = flags(FLAG_FEEDS_LOADING);
   //
   const appdata = useAppData();
   const displayArticle = appdata(DISPAY_ARTICLE);
@@ -21,7 +35,50 @@ export default function Index() {
   const closeArticleModal = () => appdata.set(DISPAY_ARTICLE, null);
 
   //
-  const onSubmit = () => {};
+  const onSubmit = async () => {
+    // skip if there is a request pending
+    if (flagFeedsLoading) return;
+    //
+    const feed = String(inputs?.feed || "").trim();
+    // try loading whaterver input
+    // display loaded articles
+    // ignore invalid input
+    // fetch new feeds @/api/import?siteRssUrl=feed
+    flags.on(FLAG_FEEDS_LOADING);
+    try {
+      const res = await axios({
+        method: "post",
+        url: `${API_URL}/articles/import/?siteRssUrl=${encodeURI(feed)}`,
+      });
+      //
+      // handle load success
+      // ignore invalid inputs
+      // refresh view
+      if (
+        "ok" === String(res?.statusText).toLocaleLowerCase() &&
+        0 === res?.data?.error
+      ) {
+        // articles loaded
+        // refresh view
+        qClient.invalidateQueries("articles");
+        appdata.set(APP_NOTIFICATION, {
+          key: Date.now(),
+          notification: "✅ | Your feeds have been successfully loaded.",
+        });
+      } else {
+        //
+        // debug networking
+        console.log(res);
+        appdata.set(APP_NOTIFICATION, {
+          key: Date.now(),
+          notification: "💣 404 | Failed to load rss feed.",
+        });
+      }
+    } finally {
+      flags.off(FLAG_FEEDS_LOADING);
+      resetInput();
+    }
+  };
   //
   useEffect(() => {
     refInput.current.focus();
@@ -51,17 +108,21 @@ export default function Index() {
               ref={refInput}
             />
             <button
-              className="text-slate-500 active:bg-slate-500 active:text-white italic ml-2 md:ml-4 lg:ml-8 bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-48 sm:w-64 rounded-t-2xl"
+              className={`text-slate-500 active:bg-slate-500 active:text-white italic ml-2 md:ml-4 lg:ml-8 bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-48 sm:w-64 rounded-t-2xl ${
+                flagFeedsLoading ? "cursor-not-allowed !opacity-50" : ""
+              }`}
               type="submit"
             >
               load articles
             </button>
-            <button
-              className="text-slate-400 active:bg-slate-500 active:text-white italic ml-px bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-24 sm:w-32 rounded-t-2xl"
-              type="button"
-            >
-              about
-            </button>
+            <Link href="/about">
+              <button
+                className="text-slate-400 active:bg-slate-500 active:text-white italic ml-px bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-24 sm:w-32 rounded-t-2xl"
+                type="button"
+              >
+                about
+              </button>
+            </Link>
             <a
               className="flex items-center justify-center text-slate-400 italic ml-px sm:ml-4 bg-slate-100 hover:bg-slate-200 px-2 sm:px-4 rounded-t-2xl"
               href="https://github.com/nikolav/demo-app-enyosolutions"
@@ -96,9 +157,11 @@ export default function Index() {
       {/* display selected article from context */}
       <Modal isOpen={isOpenArticleModal} onClose={closeArticleModal}>
         <div className="h-full overflow-y-auto">
-          <div className="prose p-6">
+          <div className="prose p-2 sm:p-6">
             <h4>{displayArticle?.title}</h4>
-            <article dangerouslySetInnerHTML={{ __html: displayArticle?.description }} />
+            <article
+              dangerouslySetInnerHTML={{ __html: displayArticle?.description }}
+            />
           </div>
         </div>
       </Modal>

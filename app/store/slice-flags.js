@@ -4,6 +4,8 @@ import { paste } from "../../src/util";
 
 //
 export const FLAG_TEST = "xjxjrdhdhly";
+export const FLAG_FEEDS_LOADING = "uxvwhrdoupc";
+//
 const initialState = {
   [FLAG_TEST]: null,
 };

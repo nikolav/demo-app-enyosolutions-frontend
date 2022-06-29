@@ -5,7 +5,8 @@ import { paste, has } from "../../src/util";
 //
 export const TEST = "fktzzfpmzpb";
 export const ADMIN = "otqknvlgpve";
-export const DISPAY_ARTICLE = "yxnlrtxfhdz"
+export const DISPAY_ARTICLE = "yxnlrtxfhdz";
+export const APP_NOTIFICATION = "xchcikraemj";
 //
 const initialState = {
   [ADMIN]: {
@@ -16,6 +17,7 @@ const initialState = {
   },
   [TEST]: "1.22.333",
   [DISPAY_ARTICLE]: null,
+  [APP_NOTIFICATION]: { key: "", notification: "" },
 };
 
 export const counterSlice = createSlice({

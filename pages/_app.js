@@ -1,10 +1,11 @@
 import Head from "next/head";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Provider as ReduxStoreProvider } from "react-redux";
 import { store } from "../app/store/redux";
 import { QueryProvider } from "../app/providers";
 import ArticlesProvider from "../app/store/resource";
+import AppNotification from "../components/AppNotification/AppNotification";
 //
 import "../styles/reset.css";
 import "../styles/build.css";
@@ -51,12 +52,13 @@ function MyApp({
       </Head>
       <QueryProvider>
         <ArticlesProvider>
-          <SessionProvider
+          {/* <SessionProvider
             session={session}
             refetchInterval={0}
             refetchOnWindowFocus={true}
-          >
-            <ReduxStoreProvider store={store}>
+          > */}
+          <ReduxStoreProvider store={store}>
+            <>
               <AnimatePresence initial={false}>
                 <motion.div
                   key={route}
@@ -69,8 +71,11 @@ function MyApp({
                   <Component {...restPageProps} />
                 </motion.div>
               </AnimatePresence>
-            </ReduxStoreProvider>
-          </SessionProvider>
+              {/*  */}
+              <AppNotification />
+            </>
+          </ReduxStoreProvider>
+          {/* </SessionProvider> */}
         </ArticlesProvider>
       </QueryProvider>
     </>

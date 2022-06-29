@@ -1,8 +1,10 @@
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-import { stripEndSlashes } from "../util";
+import { API_URL } from "../../app/store";
 //
-export const URL_LOCAL = "https://demo-enyosolutions.herokuapp.com/api";
+// export const URL_LOCAL = "https://demo-enyosolutions.herokuapp.com/api";
+export const URL_LOCAL = API_URL;
+//
 export const ARTICLES = "articles";
 //
 export const DEFAULT_QUERY_CONFIG = {
@@ -72,7 +74,7 @@ export function useQueryResource(resource, config = {}) {
     resource,
     (_queryKey) =>
       axios
-        .get(`${stripEndSlashes(URL_LOCAL)}/${resource}`)
+        .get(`${API_URL}/${resource}`)
         .then(({ data }) => ({ data: data.articles })),
     {
       ...DEFAULT_QUERY_CONFIG,

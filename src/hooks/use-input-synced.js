@@ -1,14 +1,9 @@
 import { useState } from "react";
-export default function useInputSynced(initialValue = {}) {
-  const [input, setInput] = useState(initialValue);
-
-  //   return [sync_, input];
-  return { sync: sync_, inputs: input, setInput };
-
-  function sync_(evt) {
-    setInput((current) => ({
-      ...current,
-      [evt.target.name]: evt.target.value,
-    }));
-  }
+export default function useInputSynced(initial = {}) {
+  const [inputs, setInputs] = useState(initial);
+  const setInput_ = (name, value) =>
+    setInputs((current) => ({ ...current, [name]: value }));
+  const sync = (evt) => setInput_(evt.target.name, evt.target.value);
+  //
+  return { sync, inputs, setInput: setInput_ };
 }
