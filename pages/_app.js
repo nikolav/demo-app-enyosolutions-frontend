@@ -66,7 +66,7 @@ function MyApp({
                   animate="in"
                   exit="out"
                   variants={pageVariantsMotion}
-                  className="absolute w-full"
+                  className="absolute w-full h-full"
                 >
                   <Component {...restPageProps} />
                 </motion.div>

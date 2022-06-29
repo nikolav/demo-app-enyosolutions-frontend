@@ -63,7 +63,7 @@ export default function Index() {
         qClient.invalidateQueries("articles");
         appdata.set(APP_NOTIFICATION, {
           key: Date.now(),
-          notification: "✅ | Your feeds have been successfully loaded.",
+          notification: "✅ | Default feeds have been successfully loaded.",
         });
       } else {
         //
@@ -103,12 +103,12 @@ export default function Index() {
               value={inputs.feed}
               type="text"
               name="feed"
-              className="text-white pl-12 inputRss input-underline placeholder:italic placeholder:text-white/70"
+              className="text-white sm:pl-12 inputRss input-underline placeholder:italic placeholder:text-white/70"
               placeholder="load rss url..."
               ref={refInput}
             />
             <button
-              className={`text-slate-500 active:bg-slate-500 active:text-white italic ml-2 md:ml-4 lg:ml-8 bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-48 sm:w-64 rounded-t-2xl ${
+              className={`text-sm sm:text-base text-slate-500 active:bg-slate-500 active:text-white italic ml-2 md:ml-4 lg:ml-8 bg-slate-100 hover:bg-slate-200 px-2 sm:px-4 w-48 sm:w-64 rounded-t-2xl ${
                 flagFeedsLoading ? "cursor-not-allowed !opacity-50" : ""
               }`}
               type="submit"
@@ -117,7 +117,7 @@ export default function Index() {
             </button>
             <Link href="/about">
               <button
-                className="text-slate-400 active:bg-slate-500 active:text-white italic ml-px bg-slate-100 hover:bg-slate-200 px-0 sm:px-4 w-24 sm:w-32 rounded-t-2xl"
+                className="text-sm sm:text-base text-slate-400 active:bg-slate-500 active:text-white italic ml-px bg-slate-100 hover:bg-slate-200 px-4 w-24 sm:w-32 rounded-t-2xl"
                 type="button"
               >
                 about
@@ -140,7 +140,7 @@ export default function Index() {
         0 == articles.length ? (
           <p>no articles</p>
         ) : (
-          <ul className="pt-20 list-none space-y-2 sm:space-y-4 p-1">
+          <ul className="px-2 sm:px-6 sm:pt-24 md:px-8 lg:px-12 xl:px-24 pt-20 list-none space-y-2 sm:space-y-4 p-1">
             {articles
               .sort(sortByTimestampDesc("publicationDate"))
               .map((article) => (

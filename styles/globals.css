@@ -2,11 +2,26 @@
   color: #1e2;
 }
 
-.inputRss {
-  background-image: url("../components/icons/rss-filled.svg");
-  background-repeat: no-repeat;
-  background-size: 24px;
-  background-position: 6px;
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 0.2rem;
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #334155;
+}
+
+@media screen and (min-width: 640px) {
+  .inputRss {
+    background-image: url("../components/icons/rss-filled.svg");
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: 6px;
+  }
 }
 
 /*# sourceMappingURL=globals.css.map */

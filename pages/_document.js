@@ -5,7 +5,7 @@ class Doc extends Document {
     return (
       <Html>
         <Head>{/* // global, meta... */}</Head>
-        <body className="text-base bg-slate-50 text-slate-800">
+        <body className="text-base bg-slate-50 text-slate-800 scrollbar-thin">
           <div id="overlays--mdozwrwqvef" />
           <Main />
           <div id="overlays-end--mdozwrwqvef" />
